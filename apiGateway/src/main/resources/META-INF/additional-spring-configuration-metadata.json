@@ -1,0 +1,62 @@
+{"properties": [
+  {
+    "name": "predicates",
+    "type": "java.lang.String",
+    "description": "A description for 'predicates'"
+  },
+  {
+    "name": "application",
+    "type": "java.lang.String",
+    "description": "A description for 'application'"
+  },
+  {
+    "name": "client",
+    "type": "java.lang.String",
+    "description": "A description for 'client'"
+  },
+  {
+    "name": "serviceUrl",
+    "type": "java.lang.String",
+    "description": "A description for 'serviceUrl'"
+  },
+  {
+    "name": "defaultZone",
+    "type": "java.lang.String",
+    "description": "A description for 'defaultZone'"
+  },
+  {
+    "name": "name",
+    "type": "java.lang.String",
+    "description": "A description for 'name'"
+  },
+  {
+    "name": "cloud",
+    "type": "java.lang.String",
+    "description": "A description for 'cloud'"
+  },
+  {
+    "name": "gateway",
+    "type": "java.lang.String",
+    "description": "A description for 'gateway'"
+  },
+  {
+    "name": "routes",
+    "type": "java.lang.String",
+    "description": "A description for 'routes'"
+  },
+  {
+    "name": "-",
+    "type": "java.lang.String",
+    "description": "A description for '-'"
+  },
+  {
+    "name": "uri",
+    "type": "java.lang.String",
+    "description": "A description for 'uri'"
+  },
+  {
+    "name": "eureka.client.lease.duration",
+    "type": "java.lang.String",
+    "description": "A description for 'eureka.client.lease.duration'"
+  }
+]}
