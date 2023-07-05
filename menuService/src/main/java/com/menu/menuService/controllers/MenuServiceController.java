@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +33,7 @@ import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import com.menu.menuService.Dto.menuImagesDto;
+import com.menu.menuService.Dto.singleMenuOutputDto;
 import com.menu.menuService.models.Menu;
 import com.menu.menuService.repository.MenuRepository;
 import com.menu.menuService.services.menuService;
@@ -45,6 +48,9 @@ public class MenuServiceController {
 	
 	@Autowired
 	 MenuRepository menuRepository;
+	
+	@Autowired(required = true)
+	menuService menuService;
 	
 	
 	
@@ -80,7 +86,31 @@ public class MenuServiceController {
       
         List<menuImagesDto> menuImages = response.getBody();
         System.out.println(menuImages);
-	    return menuImages;
+        
+        Optional<Menu> menu = this.menuService.getMenuById(id);
+        
+        System.out.println(menu.get().getId());
+        
+         //menuOutput mu= new menuOutput(menu,menuImages);
+        
+       // HashMap<Integer, ArrayList<String>> menu = new HashMap<Integer, ArrayList<String>>();
+         // menu.put("menuimages", menuImages);      
+        	
+        singleMenuOutputDto sdt= new singleMenuOutputDto(
+        		menu.get().getId(),
+        		menu.get().getPrice(),
+        		menu.get().getShot_desc(),
+        		menu.get().getTitle(),
+        		menu.get().getType(),
+        		menu.get().getCategory(),
+        		menuImages
+        		);
+        
+       
+       
+       
+        
+	    return sdt;
 	  
 	//return restTemplate.getForObject(uri, menuImagesDto.class);
 			// Object response = menuservice.getmenuImages(id);
