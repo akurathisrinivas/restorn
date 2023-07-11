@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,7 @@ import com.menu.menuService.services.menuService;
 
 import jakarta.validation.Valid;
 
-//@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 //@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api/menu")
@@ -156,6 +157,21 @@ public class MenuServiceController {
 		 */
 	   //return menuRepository.findById(id);
 		
+	}
+	
+	@GetMapping("/getAllMenu")
+	public List<Menu> getMenuAll(){
+		
+		List<Menu> menu = this.menuService.getMenuAllData();
+		
+	    return menu;
+	}
+	
+	@DeleteMapping("/deleteMenu/{Id}")
+	public List<Menu> deleteMenu(@PathVariable Long Id)
+	{
+	    return (List<Menu>) this.menuService.deleteMenuById(Id);    
+	    
 	}
 	
 

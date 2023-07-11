@@ -44,5 +44,20 @@ public class menuService {
 		
 		return this.menuRepository.findById(id);
 	}
+	
+	public List<Menu> getMenuAllData() {
+		
+		return this.menuRepository.findAll();
+
+		
+	}
+	
+	
+	public List<Menu> deleteMenuById(Long Id){
+		
+		this.menuRepository.deleteById(Id);
+		return this.menuRepository.findAll();
+
+	}
 
 }
