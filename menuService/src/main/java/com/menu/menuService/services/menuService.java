@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.menu.menuService.Dto.menuImagesDto;
+import com.menu.menuService.Enum.Status;
 import com.menu.menuService.models.Menu;
 import com.menu.menuService.repository.MenuRepository;
 
@@ -59,5 +60,18 @@ public class menuService {
 		return this.menuRepository.findAll();
 
 	}
-
+  
+	public Optional<Menu> updateMenuStatus(Long Id,Status status){
+		//private int new_status;
+		
+		/*
+		 * if(status == "ACTIVE") { new_status=1; }else { new_status=0; }
+		 */
+		Menu article = new Menu();
+		article.setStatus(status);
+		//System.out.println(article.getStatus().ordinal());
+		
+		this.menuRepository.updateStatus(Id,article.getStatus().ordinal());
+		return this.menuRepository.findById(Id);
+	}
 }

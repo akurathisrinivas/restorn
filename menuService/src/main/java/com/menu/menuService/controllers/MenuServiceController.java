@@ -35,14 +35,16 @@ import org.springframework.web.client.RestTemplate;
 
 import com.menu.menuService.Dto.menuImagesDto;
 import com.menu.menuService.Dto.singleMenuOutputDto;
+import com.menu.menuService.Enum.Status;
 import com.menu.menuService.models.Menu;
 import com.menu.menuService.repository.MenuRepository;
 import com.menu.menuService.services.menuService;
 
+import jakarta.persistence.EnumType;
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-//@CrossOrigin(origins = "http://localhost:8081")
+//@CrossOrigin(origins = "http://localhost:9090")
 @RestController
 @RequestMapping("/api/menu")
 public class MenuServiceController {
@@ -64,6 +66,7 @@ public class MenuServiceController {
 		
 		return "srinivas";
 	}
+	
 	
 	@PostMapping("/savemenu")
 	public ResponseEntity<?> saveMenu(@Valid @RequestBody Menu menu){
@@ -104,7 +107,9 @@ public class MenuServiceController {
         		menu.get().getTitle(),
         		menu.get().getType(),
         		menu.get().getCategory(),
-        		menuImages
+        		
+        		menuImages,
+        		menu.get().getStatus()
         		);
         
        
@@ -171,6 +176,13 @@ public class MenuServiceController {
 	public List<Menu> deleteMenu(@PathVariable Long Id)
 	{
 	    return (List<Menu>) this.menuService.deleteMenuById(Id);    
+	    
+	}
+	
+	@GetMapping("/updateStatus/{Id}/{status}")
+	public Optional<Menu> updateMenuStatus(@PathVariable Long Id,@PathVariable Status status)
+	{
+	    return (Optional<Menu>) this.menuService.updateMenuStatus(Id,status);    
 	    
 	}
 	

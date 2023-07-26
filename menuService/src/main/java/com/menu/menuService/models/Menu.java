@@ -57,10 +57,16 @@ public class Menu {
 	private Date createdDate;
 	
 	
-	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "Status")
-	private com.menu.menuService.Enum.Status Status;
 	
+	  @Enumerated(EnumType.ORDINAL)
+	  
+	  @Column(name = "Status") 
+	  private com.menu.menuService.Enum.Status Status;
+	 
+	
+	/*
+	 * @Column(name = "status") private int Status;
+	 */
 	
 	public Menu() {
 		
@@ -108,18 +114,23 @@ public class Menu {
 		this.category = category;
 	}
 	
-	public com.menu.menuService.Enum.Status getStatus() {
-		return Status;
-	}
-	public void setStatus(com.menu.menuService.Enum.Status status) {
-		Status = status;
-	}
+	
+	  public com.menu.menuService.Enum.Status getStatus() { return Status; } 
+	  public void setStatus(com.menu.menuService.Enum.Status status) { 
+		  Status = status; 
+		  }
+	 
+	
 	public Double getPrice() {
 		return price;
 	}
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	/*
+	 * public int getStatus() { return Status; } public void setStatus(int status) {
+	 * Status = status; }
+	 */
 	
 	
 }

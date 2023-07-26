@@ -3,6 +3,7 @@ package com.menu.menuService.Dto;
 import java.sql.Date;
 import java.util.List;
 
+import com.menu.menuService.Enum.Status;
 import com.menu.menuService.Enum.categoryType;
 
 public class singleMenuOutputDto {
@@ -13,11 +14,12 @@ public class singleMenuOutputDto {
 	private String type;
 	private Double price;
 	private categoryType category;
+	private Status status;
 
 	
 	private List<menuImagesDto> menuImages;
 	public singleMenuOutputDto(Long id, Double price, String shot_desc, String title, String type,
-			categoryType category, List<menuImagesDto> menuImages) {
+			categoryType category, List<menuImagesDto> menuImages,Status status) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.id=id;
@@ -26,7 +28,7 @@ public class singleMenuOutputDto {
 		this.title=title;
 		this.type=type;
 		this.category=category;
-		
+		this.status=status;
 		this.menuImages=menuImages;
 		
 		
@@ -74,6 +76,12 @@ public class singleMenuOutputDto {
 	}
 	public void setMenuImages(List<menuImagesDto> menuImages) {
 		this.menuImages = menuImages;
+	}
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 	
