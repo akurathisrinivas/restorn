@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -184,6 +185,20 @@ public class MenuServiceController {
 	{
 	    return (Optional<Menu>) this.menuService.updateMenuStatus(Id,status);    
 	    
+	}
+	
+	@PutMapping("updateMenu/{id}")
+	public ResponseEntity<Object> updateMenu(@Valid @RequestBody Menu menu,@PathVariable long id){
+		
+		Optional<Menu> menu1 = this.menuService.getMenuById(id);
+		if (menu1.isEmpty())
+			return ResponseEntity.notFound().build();
+		menu.setId(id);
+		
+		menuRepository.save(menu);
+		
+		//return ResponseEntity.noContent().build();
+		return ResponseEntity.ok("Menu updated successfully!");
 	}
 	
 

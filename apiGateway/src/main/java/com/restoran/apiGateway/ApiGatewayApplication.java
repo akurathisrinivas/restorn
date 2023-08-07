@@ -17,7 +17,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import io.netty.resolver.DefaultAddressResolverGroup;
 import reactor.netty.http.client.HttpClient;
 
-@CrossOrigin(origins = "http://localhost:9090",methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "http://localhost:9191",methods= {RequestMethod.GET,RequestMethod.POST})
 
 @SpringBootApplication
 @EnableDiscoveryClient

@@ -74,4 +74,9 @@ public class menuService {
 		this.menuRepository.updateStatus(Id,article.getStatus().ordinal());
 		return this.menuRepository.findById(Id);
 	}
+	
+	//public ResponseEntity<?> updatemenu(Menu menu){
+	   
+		//this.menuRepository.
+	//}
 }
