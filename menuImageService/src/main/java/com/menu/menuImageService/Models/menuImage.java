@@ -1,5 +1,6 @@
 package com.menu.menuImageService.Models;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.util.stream.Stream;
 
@@ -26,8 +27,9 @@ public class menuImage {
 	private String type;
     
     @Column(name = "data")
-	//@Lob
-	private byte[] data;
+	@Lob
+	//private byte[] data;
+    private Blob data;
 	 
 	/*
 	 * @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -46,7 +48,7 @@ public class menuImage {
 	 public  menuImage() {
 	  }
 
-	  public  menuImage(String name, String type, byte[] data,String menuId) {
+	  public  menuImage(String name, String type, Blob data,String menuId) {
 		  super();
 	    this.name = name;
 	    this.type = type;
@@ -78,11 +80,19 @@ public class menuImage {
 		this.type = type;
 	}
 
-	public byte[] getData() {
+//	public byte[] getData() {
+//		return data;
+//	}
+//
+//	public void setData(byte[] data) {
+//		this.data = data;
+//	}
+	
+	public Blob getData() {
 		return data;
 	}
 
-	public void setData(byte[] data) {
+	public void setData(Blob data) {
 		this.data = data;
 	}
 

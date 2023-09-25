@@ -2,6 +2,7 @@ package com.menu.menuImageService.Controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,6 +65,14 @@ public class menuImageController {
 	   
 		String message = "";
 	    try {
+	      
+	      
+		  //String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+	    	
+	    	String fileName = file.getOriginalFilename();
+	    	Date date = new Date();
+		    String filePath =date.getTime()+fileName;
+		    
 	      storageService.store(file,menu_id);
 	      uploadfolderservice.save(file);
 
@@ -91,8 +101,9 @@ public class menuImageController {
 	    	  dbFile.getMenuId(),
 	          dbFile.getName(),
 	          url,
-	          dbFile.getType(),
-	          dbFile.getData().length);
+	          dbFile.getType()
+	          
+	          );
 	    }).collect(Collectors.toList());
 
 	    return ResponseEntity.status(HttpStatus.OK).body(files);

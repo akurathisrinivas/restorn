@@ -32,11 +32,13 @@ public class BookingsController {
 	 BookingsService bookingsService;
 	 
 	 @PostMapping("/save")
-		public ResponseEntity<?> saveMenu(@Valid @RequestBody Bookings booking){
+		public Bookings saveMenu(@Valid @RequestBody Bookings booking){
 			System.out.println(booking);
 			
-			bookingRepository.save(booking);
-			return ResponseEntity.ok("Booking table successfully!");
+			Bookings bookings=bookingRepository.save(booking);
+			return bookings;
+			// ResponseEntity.ok(new Object());
+			 //return ResponseEntity.ok("success");
 		}
 	 
 	 @GetMapping("/list_bookings")
@@ -51,10 +53,10 @@ public class BookingsController {
 	  @GetMapping("getbookings/{id}") 
 	  public BookingsDao getbookingById(@PathVariable Long id){
 	  
-	  System.out.println(id);
+	  //System.out.println(id);
 	  Optional<Bookings> result = this.bookingsService.getBookingById(id); 
 	  //returnresult; 
-	  System.out.println(result);
+	  //System.out.println(result);
 	  
 	  BookingsDao bdr = new BookingsDao(
 			  

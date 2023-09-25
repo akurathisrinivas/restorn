@@ -8,12 +8,12 @@ public class ResponseFile {
 	  private long size;
 	  private String menuId;
 
-	  public ResponseFile(String menuId,String name, String url, String type, long size) {
+	  public ResponseFile(String menuId,String name, String url, String type) {
 	    this.menuId=menuId;
 		this.name = name;
 	    this.url = url;
 	    this.type = type;
-	    this.size = size;
+	   // this.size = size;
 	  }
 
 	public String getName() {

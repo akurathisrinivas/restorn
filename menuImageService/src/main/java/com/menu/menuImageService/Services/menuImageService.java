@@ -2,6 +2,7 @@ package com.menu.menuImageService.Services;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -33,9 +34,11 @@ public class menuImageService {
 	  public menuImage store(MultipartFile file,String menuId) throws IOException {
 		  
 		    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		    //Date date = new Date();
+		    //String fileName2 =date.getTime()+fileName;
 		    
-		    
-		    menuImage menuImagedb = new menuImage(fileName, file.getContentType(), file.getBytes(), menuId);
+		    //menuImage menuImagedb = new menuImage(fileName, file.getContentType(), file.getBytes(), menuId);
+		    menuImage menuImagedb = new menuImage(fileName, file.getContentType(), null , menuId);
 
 		    return fileDBRepository.save(menuImagedb);
 }
@@ -52,7 +55,15 @@ public class menuImageService {
 			
 		     //List<menuImageLayer> al = new ArrayList<>();
 		     
-			  return menuimagerepository.findAllBymenuId(menuId).stream();
+			  System.out.println(menuId);
+			  
+			  Stream<menuImage> store= menuimagerepository.findAllBymenuId(menuId).stream();
+			  
+			  System.out.println(store);
+			  
+			  //return menuimagerepository.findAllBymenuId(menuId).stream();
+			  return store;
+			  
 		      //System.out.println(mI);
 		     
 //		     mI.forEach((p) ->{

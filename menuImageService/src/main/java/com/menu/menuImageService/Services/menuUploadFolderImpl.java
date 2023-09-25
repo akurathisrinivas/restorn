@@ -2,10 +2,12 @@ package com.menu.menuImageService.Services;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.stream.Stream;
 
 import org.springframework.core.io.Resource;
@@ -17,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class menuUploadFolderImpl implements menuUploadFolder {
   
+	
+	//private final Path root=Paths.get(imagepath);
 	 private final Path root = Paths.get("uploads");
 
 	  @Override
@@ -31,6 +35,8 @@ public class menuUploadFolderImpl implements menuUploadFolder {
 	  @Override
 	  public void save(MultipartFile file) {
 	    try {
+		    //Date date = new Date();
+
 	      Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
 	    } catch (Exception e) {
 	      if (e instanceof FileAlreadyExistsException) {
