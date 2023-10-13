@@ -1,11 +1,15 @@
 package com.restoran.service.Models;
 
-import java.sql.Date;
+//import java.sql.Date;
+import java.util.Date;
+//import java.util.Calendar;
 
 import javax.persistence.*;
 //import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.Column;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -26,6 +30,9 @@ public class services {
 	@Column(name = "title")
 	private String title;
     
+	@Column(name = "icon")
+	private String icon;
+	
 	@NotBlank(message = "Short description not be empty")
 	@Column(name = "short_description")
 	private String short_description;
@@ -34,12 +41,28 @@ public class services {
 	@Column(name = "long_description")
 	private String long_description;
 	
+	@Column(name = "icon_class")
+	private String icon_class;
+	
 	@CreationTimestamp
 	private Date createdDate;
+	
+	/*
+	 * @Basic(optional = false)
+	 * 
+	 * @Column(name = "updated_datetime", insertable = false, updatable = false)
+	 * 
+	 * @Temporal(TemporalType.TIME) private Date updated_datetime;
+	 */
+	
+	//@CreationTimestamp
+	//private Date updatedDate;
 	
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "status") 
 	private com.restoran.service.Enum.status  status;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -88,5 +111,23 @@ public class services {
 	public void setStatus(com.restoran.service.Enum.status status) {
 		this.status = status;
 	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public String getIcon_class() {
+		return icon_class;
+	}
+
+	public void setIcon_class(String icon_class) {
+		this.icon_class = icon_class;
+	}
+
+	
 	
 }
