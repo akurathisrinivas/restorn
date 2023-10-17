@@ -1,6 +1,6 @@
 package com.restoran.service.Repository;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -19,4 +19,8 @@ public interface serviceRepository extends JpaRepository<services, Long> {
 	@Modifying
 	@Query("update services u set u.icon = ?1 where u.id = ?2")
 	int setimagenameForService(String icon, Long id);
+	
+	@Transactional
+	@Query("SELECT max(id) from services")
+	int getLastId();
 }

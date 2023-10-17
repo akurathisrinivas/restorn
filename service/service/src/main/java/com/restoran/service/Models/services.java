@@ -4,15 +4,15 @@ package com.restoran.service.Models;
 import java.util.Date;
 //import java.util.Calendar;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 //import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
+import jakarta.persistence.Column;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="services", uniqueConstraints = { 

@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import com.restoran.service.Services.imageUploadFolderImpl;
 //import com.restoran.service.Repository.serviceRepository;
 import com.restoran.service.Services.servicesLayer;
+import com.restoran.service.payload.LastIdResponse;
 import com.restoran.service.payload.MessageResponse;
 
 import com.restoran.service.Dto.servicesResponse;
@@ -37,7 +38,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 
 
@@ -56,14 +57,16 @@ public class serviceController {
 	public serviceRepository servicerepo;
 	
 	@PostMapping("/addservices")
-	public ResponseEntity<MessageResponse> addServices(@Valid @RequestBody services svc) {
+	public ResponseEntity<LastIdResponse> addServices(@Valid @RequestBody services svc) {
 		
 		services addedservice= this.serviceLayer.addServicetoDB(svc);
 		//services addedservice= this.servicerepo.save(svc);
 
 		
 		//return addedservice;
-		return ResponseEntity.ok(new MessageResponse("Added Successfully"));
+		int last_id=this.serviceLayer.getlastid();
+		
+		return ResponseEntity.ok(new LastIdResponse(last_id,"Added Successfully"));
 		
 	}
 	
@@ -97,12 +100,17 @@ public class serviceController {
 		List<services> serviceData=this.serviceLayer.getAllservicesData();
 		
 		
+		
 		List<servicesResponse> servicefiles=serviceData.stream().map(e -> {
 		
-		String iconurl = MvcUriComponentsBuilder
+			 String iconurl = null;
+
+		if(e.getIcon() != null ) {
+		 iconurl = MvcUriComponentsBuilder
           .fromMethodName(serviceController.class, "getFile", e.getIcon().toString()).build().toString();
-      
-		 return new servicesResponse(
+			}
+			
+		return new servicesResponse(
 				 
 				 e.getId(),
 				 e.getTitle(),
@@ -110,7 +118,8 @@ public class serviceController {
 				 e.getLong_description(),
 				 e.getCreatedDate(),
 				 e.getStatus(),
-				 iconurl
+				 iconurl,
+				 e.getIcon_class()
 				 
 				 );
 				
@@ -150,7 +159,8 @@ public class serviceController {
 					 servicedbData.getLong_description(),
 					 servicedbData.getCreatedDate(),
 					 servicedbData.getStatus(),
-					 iconurl
+					 iconurl,
+					 servicedbData.getIcon_class()
 					 
 					 );	
 			

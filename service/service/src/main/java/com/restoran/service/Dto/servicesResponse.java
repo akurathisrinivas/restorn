@@ -9,18 +9,20 @@ public class servicesResponse {
 	private String short_description;
 	private String long_description;
 	private Date created_date;
-	private com.restoran.service.Enum.status status2;
+	private com.restoran.service.Enum.status status;
 	private String iconurl;
+	private String icon_class;
 	
-	public servicesResponse(Long id,String title,String short_description,String long_description,Date created_date,com.restoran.service.Enum.status status2,String iconurl) {
+	public servicesResponse(Long id,String title,String short_description,String long_description,Date created_date,com.restoran.service.Enum.status status,String iconurl,String icon_class) {
 		
 		this.id=id;
 		this.title=title;
 		this.short_description=short_description;
 		this.long_description=long_description;
 		this.created_date=created_date;
-		this.status2=status2;
+		this.status=status;
 		this.iconurl=iconurl;
+		this.icon_class=icon_class;
 	}
 	
 	
@@ -72,12 +74,12 @@ public class servicesResponse {
 		this.created_date = created_date;
 	}
 
-	public com.restoran.service.Enum.status getStatus2() {
-		return status2;
+	public com.restoran.service.Enum.status getStatus() {
+		return status;
 	}
 
-	public void setStatus2(com.restoran.service.Enum.status status2) {
-		this.status2 = status2;
+	public void setStatus(com.restoran.service.Enum.status status) {
+		this.status = status;
 	}
 
 	public String getIconurl() {
@@ -86,5 +88,16 @@ public class servicesResponse {
 
 	public void setIconurl(String iconurl) {
 		this.iconurl = iconurl;
+	}
+
+
+
+	public String getIcon_class() {
+		return icon_class;
+	}
+
+
+	public void setIcon_class(String icon_class) {
+		this.icon_class = icon_class;
 	}
 }

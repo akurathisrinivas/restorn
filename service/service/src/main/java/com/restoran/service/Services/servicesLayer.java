@@ -62,5 +62,9 @@ public class servicesLayer {
 	   
 	   return this.servicerepo.findAll();
 	  }
+	  
+	  public int getlastid(){
+		  return this.servicerepo.getLastId();
+	  }
 	 
 }
