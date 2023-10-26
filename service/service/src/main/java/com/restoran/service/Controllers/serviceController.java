@@ -147,10 +147,12 @@ public class serviceController {
 	   services servicedbData=this.serviceLayer.getServiceById(id);
 	   
 	   
-			
-			String iconurl = MvcUriComponentsBuilder
+	   String iconurl = null;
+
+		if(servicedbData.getIcon() != null ) {
+			 iconurl = MvcUriComponentsBuilder
 	          .fromMethodName(serviceController.class, "getFile", servicedbData.getIcon().toString()).build().toString();
-	      
+		}
 			 return new servicesResponse(
 					 
 					 servicedbData.getId(),
