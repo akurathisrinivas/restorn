@@ -2,11 +2,15 @@ package com.auth.loginService.controller;
 
 
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.security.access.prepost.PreAuthorize; 
 import org.springframework.security.authentication.AuthenticationManager; 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken; 
-import org.springframework.security.core.Authentication; 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException; 
 import org.springframework.web.bind.annotation.*;
 
@@ -66,11 +70,29 @@ public class userController {
     public signinResponse signinauthenticateAndGetToken(@RequestBody AuthRequest authRequest) { 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())); 
         
+        
+        
         if (authentication.isAuthenticated()) { 
             
             String JWTtoken=jwtService.generateToken(authRequest.getUsername());
+            
             String msg="User Login successfully";
-            return new signinResponse(msg,JWTtoken);
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            //System.out.println(authenticationManager.getClass());
+            //authenticationManager.getClass().
+            
+            //System.out.println(authentication.getPrincipal());
+            //System.out.println(userDetails.getPassword());
+
+            List<UserInfo> user=this.service.checkGetUserDetails(authRequest.getUsername(), userDetails.getPassword());
+            
+            return new signinResponse(
+            		user.get(0).getId(),
+            		user.get(0).getName(),
+            		user.get(0).getEmail(),
+            		user.get(0).getRoles(),
+            		msg,
+            		JWTtoken);
         } else { 
             throw new UsernameNotFoundException("invalid user request !"); 
         } 
