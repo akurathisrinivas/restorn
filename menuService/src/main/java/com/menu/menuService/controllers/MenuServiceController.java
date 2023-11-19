@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +35,9 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+
 import com.menu.menuService.Dto.menuImagesDto;
+import com.menu.menuService.Dto.multiMenuOutputDto;
 import com.menu.menuService.Dto.singleMenuOutputDto;
 import com.menu.menuService.Enum.Status;
 import com.menu.menuService.models.Menu;
@@ -201,5 +204,105 @@ public class MenuServiceController {
 		return ResponseEntity.ok("Menu updated successfully!");
 	}
 	
+	@GetMapping("/homePageMenu")
+	
+	public multiMenuOutputDto homePageMenu(){
+		
+		List<Menu> speacialMenu=this.menuService.getHomePageMenu("SPEACIAL");
+		List<Menu> popularMenu=this.menuService.getHomePageMenu("POPULAR");
+		List<Menu> LovelyMenu=this.menuService.getHomePageMenu("LOVELY");
+		
+		/*
+		 * ArrayList<singleMenuOutputDto> filled_data_ = new ArrayList<>();
+		 * ArrayList<menuImagesDto> filled_data2_ = new ArrayList<>();
+		 * 
+		 * for(Menu i : speacialMenu) { Long id= i.getId();
+		 * 
+		 * 
+		 * List<menuImagesDto> menuImages= this.menuImagesList(id);
+		 * 
+		 * if(menuImages.isEmpty()) { menuImages =null; }
+		 * 
+		 * filled_data_.add(
+		 * 
+		 * i.getId(), i.getPrice(), i.getShot_desc(), i.getTitle(), i.getType(),
+		 * i.getCategory(), i.getStatus(), menuImages );
+		 * 
+		 * }
+		 */
+		
+		 //return filled_data_;
+			
+			/*
+			 * List<singleMenuOutputDto> speacialMenuOP = speacialMenu .stream() .map(
+			 * mmenu-> {
+			 * 
+			 * 
+			 * Long id = mmenu.getId();
+			 * 
+			 * List<menuImagesDto> menuImages= this.menuImagesList(id);
+			 * 
+			 * return new singleMenuOutputDto(
+			 * 
+			 * mmenu.getId(), mmenu.getPrice(), mmenu.getShot_desc(), mmenu.getTitle(),
+			 * mmenu.getType(), mmenu.getCategory(), menuImages, mmenu.getStatus() );
+			 * }).collect(Collectors.toList());
+			 */
+			 
+		    
+		    List<singleMenuOutputDto>  popularMenuOP=this.menuFormation(popularMenu);
+		    List<singleMenuOutputDto>  speacialMenuOP=this.menuFormation(speacialMenu);
+		    List<singleMenuOutputDto>  LovelyMenuMenuOP=this.menuFormation(LovelyMenu);
+		    
+		    multiMenuOutputDto multiMenuOP=
+		    		new multiMenuOutputDto(
+		    		popularMenuOP,
+		    		speacialMenuOP,
+		    		LovelyMenuMenuOP
+				   );
+		   
+			return multiMenuOP;
+		
+		
+	}
+	
+	public List<menuImagesDto> menuImagesList(Long id){
+		RestTemplate restTemplate = new RestTemplate();
+		   
+        final String uri = "http://localhost:8082/api/menuImages/getImagesByMenuId/" +id;
+		
+		
+		
+		ResponseEntity<List> response = restTemplate.getForEntity(uri, List.class);
+      
+        List<menuImagesDto> menuImages = response.getBody();
+         return menuImages;
+	}
+	
+	public List<singleMenuOutputDto> menuFormation(List<Menu> menu){
+		List<singleMenuOutputDto> typeOfMenuOP = menu
+				.stream() .map( m_menu-> {
+		  
+		  
+		  Long id = m_menu.getId();
+		  
+		  List<menuImagesDto> menuImages= this.menuImagesList(id);
+		  
+		  return new singleMenuOutputDto(
+		  
+				  m_menu.getId(), 
+				  m_menu.getPrice(), 
+				  m_menu.getShot_desc(), 
+				  m_menu.getTitle(),
+				  m_menu.getType(), 
+				  m_menu.getCategory(), 
+				  menuImages,
+				  m_menu.getStatus()
+				  ); 
+		  }).collect(Collectors.toList());
+		 
+	
+		return typeOfMenuOP;
+	}
 
 }

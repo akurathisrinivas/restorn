@@ -79,4 +79,8 @@ public class menuService {
 	   
 		//this.menuRepository.
 	//}
+	public List<Menu> getHomePageMenu(String category){
+		
+		return this.menuRepository.getMenuByCategory(category);
+	}
 }

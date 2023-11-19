@@ -18,6 +18,7 @@ public class singleMenuOutputDto {
 
 	
 	private List<menuImagesDto> menuImages;
+	
 	public singleMenuOutputDto(Long id, Double price, String shot_desc, String title, String type,
 			categoryType category, List<menuImagesDto> menuImages,Status status) {
 		// TODO Auto-generated constructor stub

@@ -53,6 +53,9 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider()) 
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class) 
                 .build(); 
+        
+        
+       
     } 
   
     // Password Encoding 

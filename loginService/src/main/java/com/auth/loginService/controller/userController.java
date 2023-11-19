@@ -68,9 +68,27 @@ public class userController {
     
     @PostMapping("/signin")
     public signinResponse signinauthenticateAndGetToken(@RequestBody AuthRequest authRequest) { 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())); 
         
-        
+    	try {
+    	Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())); 
+    	}catch(Exception e) {
+            //System.out.println(e.getMessage());
+            //throw new UsernameNotFoundException("invalid user request !");
+    		return new signinResponse(
+            		0,
+            		"",
+            		"",
+            		"",
+            		"Bad Credentials",
+            		"");
+        		
+
+    	}
+        //SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        //securityContext.setAuthentication(authenticationResult);
+    	Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())); 
+
+        System.out.println(authentication.isAuthenticated());
         
         if (authentication.isAuthenticated()) { 
             
@@ -94,7 +112,14 @@ public class userController {
             		msg,
             		JWTtoken);
         } else { 
-            throw new UsernameNotFoundException("invalid user request !"); 
+            //throw new UsernameNotFoundException("invalid user request !");
+            return new signinResponse(
+            		0,
+            		"no",
+            		"no",
+            		"no",
+            		"Usernotfound",
+            		"no");
         } 
     } 
     
